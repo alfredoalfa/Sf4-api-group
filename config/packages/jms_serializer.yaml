@@ -1,0 +1,8 @@
+jms_serializer:
+    handlers:
+        datetime:
+            default_format: "Y-m-d H:i:s"
+            default_timezone: "UTC"
+#    visitors:
+#        xml:
+#            format_output: "%kernel.debug%"

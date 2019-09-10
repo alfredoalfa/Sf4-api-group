@@ -11,6 +11,11 @@ use App\Entity\User;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Constraints as Assert;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Nelmio\ApiDocBundle\Annotation\Security;
+use Swagger\Annotations as SWG;
+use FOS\RestBundle\View\View;
+use FOS\RestBundle\Controller\Annotations as FOSRest;
 
 /**
  * @Route("/auth")
@@ -58,10 +63,10 @@ class ApiAuthController extends AbstractController
         } catch (\Exception $e) {
             return new JsonResponse(["error" => $e->getMessage()], 500);
         }
-
-        return $this->redirectToRoute('api_auth_login', [
-            'username' => $data['username'],
-            'password' => $data['password']
-        ], 307);
+        return View::create($user, Response::HTTP_OK , []);
+//        return $this->redirectToRoute('api_auth_login', [
+//            'username' => $data['username'],
+//            'password' => $data['password']
+//        ], 307);
     }
 }
