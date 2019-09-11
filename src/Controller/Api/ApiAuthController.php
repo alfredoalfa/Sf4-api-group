@@ -110,8 +110,6 @@ class ApiAuthController extends AbstractController
             ->setRoles(['ROLE_USER'])
             ->setSuperAdmin(false)
         ;
-        //$resul = $serializer->serialize($user, 'json');
-
         try {
             $userManager->updateUser($user);
         } catch (\Exception $e) {
