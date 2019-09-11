@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use FOS\RestBundle\Controller\Annotations as Rest;
 
 /**
  * @Route("/user")
@@ -15,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ApiUserController extends AbstractController
 {
     /**
-     * @Route("/{id}", name="api_user_detail", methods={"GET"})
+     * @Rest\Get("/{id}", name="api_user_detail")
      * @Security("is_granted('view', user)")
      * @param User $user
      * @return JsonResponse
