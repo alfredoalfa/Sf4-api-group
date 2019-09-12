@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\User;
+use App\Form\RegistrationType;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -68,24 +69,23 @@ class ApiAuthController extends AbstractController
      *     ),
      * )
      * @SWG\Tag(name="Register")
-     * @Security(name="Bearer")
      * @param Request $request
      * @param UserManagerInterface $userManager
      * @return JsonResponse|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function register(Request $request, UserManagerInterface $userManager)
     {
-        /** @var $serializer \JMS\Serializer\Serializer */
-        $serializer = $this->get("serializer");
-        $data = $request->getContent();
-
         $data = json_decode(
             $request->getContent(),
             true
         );
 
-        //$data = $serializer->deserialize($data, User::class, 'json');
+        $user = new User();
+        $form = $this->createForm(RegistrationType::class, $user);
+        $form->submit($data);
 
+        dump($form);
+        die();
         $validator = Validation::createValidator();
         $constraint = new Assert\Collection(array(
             // the keys correspond to the keys in the input array

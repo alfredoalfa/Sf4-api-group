@@ -7,8 +7,8 @@ fos_user:
         address: "test@domain.com"
         sender_name: "test@domain.com"
     registration:
-        #        form:
-        #            type: AppBundle\Form\UserRegisterType
+        form:
+            type: App\Form\RegistrationType
         confirmation:
             enabled: true
             template:   FOSUserBundle:Registration:email.txt.twig

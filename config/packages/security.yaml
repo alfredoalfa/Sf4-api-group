@@ -8,15 +8,6 @@ security:
         ROLE_SUPER_ADMIN: ROLE_ADMIN
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        chain_provider:
-            chain:
-                providers: [in_memory, fos_userbundle]
-        in_memory:
-            memory:
-                users:
-                    superadmin:
-                        password: 'superadminpw'
-                        roles: ['ROLE_SUPER_ADMIN']
         fos_userbundle:
             id: fos_user.user_provider.username_email
 
@@ -30,11 +21,13 @@ security:
             stateless: true
             anonymous: true
             json_login:
-                provider: chain_provider
+                provider: fos_userbundle
                 check_path: /api/auth/login
+                username_path: email
+                password_path: password
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
-            provider: chain_provider
+            provider: fos_userbundle
 
         api_doc:
             pattern:  ^/api/doc
@@ -50,7 +43,7 @@ security:
             pattern: ^/api
             stateless: true
             anonymous: false
-            provider: chain_provider
+            provider: fos_userbundle
             guard:
                 authenticators:
                     - lexik_jwt_authentication.jwt_token_authenticator
@@ -58,7 +51,7 @@ security:
         main:
             pattern: ^/
             form_login:
-                provider: chain_provider
+                provider: fos_userbundle
                 csrf_token_generator: security.csrf.token_manager
                 login_path: fos_user_security_login
                 check_path: fos_user_security_check
@@ -68,7 +61,7 @@ security:
             logout:
                 path:   fos_user_security_logout
                 target: fos_user_security_login
-            anonymous:    true
+            anonymous: true
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
