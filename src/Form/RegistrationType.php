@@ -11,17 +11,27 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RegistrationType extends AbstractType
 {
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name');
     }
 
-    public function getParent()
+    /**
+     * @return null|string
+     */
+    public function getParent(): ?string
     {
         return 'FOS\UserBundle\Form\Type\RegistrationFormType';
     }
 
-    public function getBlockPrefix()
+    /**
+     * @return null|string
+     */
+    public function getBlockPrefix(): ?string
     {
         return 'app_user_registration';
     }

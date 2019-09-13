@@ -20,6 +20,7 @@ use Swagger\Annotations as SWG;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\DeserializationContext;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Route("/auth")
@@ -73,29 +74,24 @@ class ApiAuthController extends AbstractController
      * @param UserManagerInterface $userManager
      * @return JsonResponse|\Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function register(Request $request, UserManagerInterface $userManager)
+    public function register(Request $request, UserManagerInterface $userManager, ValidatorInterface $validator)
     {
+        $user = new User();
+        $form = $this->createForm(RegistrationType::class, $user);
         $data = json_decode(
             $request->getContent(),
             true
         );
+         $form->submit($data);
 
-        $user = new User();
-        $form = $this->createForm(RegistrationType::class, $user);
-        $form->submit($data);
+        if(!$form->isValid()){
+            $violations = $validator->validate($user);
+            $errorsString = (string) $violations[0]->getConstraint()->exactMessage;
+            if ($violations->count() > 0) {
+                return new JsonResponse(["error" => (string)$errorsString], 500);
+            }
 
-        dump($form);
-        die();
-        $validator = Validation::createValidator();
-        $constraint = new Assert\Collection(array(
-            // the keys correspond to the keys in the input array
-            'username' => new Assert\Length(array('min' => 4)),
-            'password' => new Assert\Length(array('min' => 4)),
-            'email' => new Assert\Email(),
-        ));
-        $violations = $validator->validate($data, $constraint);
-        if ($violations->count() > 0) {
-            return new JsonResponse(["error" => (string)$violations], 500);
+            return new JsonResponse(["error" => "Not valid form"], 400);
         }
 
         $username = $data['username'];

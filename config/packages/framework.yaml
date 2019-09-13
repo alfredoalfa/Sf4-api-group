@@ -1,4 +1,5 @@
 framework:
+    validation: { enable_annotations: true }
     secret: '%env(APP_SECRET)%'
     templating:
         engines: ['twig','php']
