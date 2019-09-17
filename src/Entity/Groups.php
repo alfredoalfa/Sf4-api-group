@@ -3,6 +3,9 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as JMS;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Groups
@@ -26,6 +29,7 @@ class Groups
      * @var string
      *
      * @ORM\Column(name="group_name", type="string", length=100, nullable=false)
+     * @JMS\Groups({"api_users"})
      */
     private $groupName;
 
@@ -33,6 +37,7 @@ class Groups
      * @var string|null
      *
      * @ORM\Column(name="description", type="string", length=100, nullable=true)
+     * @JMS\Groups({"api_users"})
      */
     private $description;
 
@@ -40,6 +45,7 @@ class Groups
      * @var string
      *
      * @ORM\Column(name="status", type="string", length=20, nullable=false)
+     * @JMS\Groups({"api_users"})
      */
     private $status;
 
@@ -56,6 +62,71 @@ class Groups
      * @ORM\Column(name="updated_at", type="datetimetz", nullable=true)
      */
     private $updatedAt;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getGroupName(): ?string
+    {
+        return $this->groupName;
+    }
+
+    public function setGroupName(string $groupName): self
+    {
+        $this->groupName = $groupName;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
 
 
 }

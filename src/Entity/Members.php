@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as JMS;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Members
@@ -26,6 +28,7 @@ class Members
      * @var string
      *
      * @ORM\Column(name="first_name", type="string", length=100, nullable=false)
+     * @JMS\Groups({"api_users", api_response})
      */
     private $firstName;
 
@@ -33,6 +36,7 @@ class Members
      * @var string
      *
      * @ORM\Column(name="last_name", type="string", length=100, nullable=false)
+     * @JMS\Groups({"api_users", api_response})
      */
     private $lastName;
 
@@ -40,6 +44,7 @@ class Members
      * @var string|null
      *
      * @ORM\Column(name="phone", type="string", length=50, nullable=true)
+     * @JMS\Groups({"api_users", api_response})
      */
     private $phone;
 
@@ -66,6 +71,90 @@ class Members
      * })
      */
     private $user;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(string $firstName): self
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): self
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): self
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return User|null
+     */
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User|null $user
+     * @return Members
+     */
+    public function setUser(?User $user): Members
+    {
+        $this->user = $user;
+
+        return $this;
+    }
 
 
 }

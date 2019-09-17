@@ -56,5 +56,58 @@ class GroupMember
      */
     private $member;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getGroup(): ?Groups
+    {
+        return $this->group;
+    }
+
+    public function setGroup(?Groups $group): self
+    {
+        $this->group = $group;
+
+        return $this;
+    }
+
+    public function getMember(): ?Members
+    {
+        return $this->member;
+    }
+
+    public function setMember(?Members $member): self
+    {
+        $this->member = $member;
+
+        return $this;
+    }
+
 
 }
