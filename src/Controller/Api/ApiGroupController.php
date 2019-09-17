@@ -54,8 +54,6 @@ class ApiGroupController extends AbstractController
      */
     public function newGroupAction(Request $request)
     {
-        dump($request->request->all());
-        ;
         $respuesta = $this->groupService->createGroup($request->request->all());
         die();
 

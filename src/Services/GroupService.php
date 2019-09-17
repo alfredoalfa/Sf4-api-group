@@ -5,9 +5,9 @@ namespace App\Services;
 
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Groups;
+use App\Form\GroupType;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Form\FormFactoryInterface;
-
 
 class GroupService
 {
@@ -19,7 +19,7 @@ class GroupService
     /**
      * @var ValidatorInterface
      */
-    protected $validatorInterface;
+    protected $validator;
 
     /**
      * @var FormFactoryInterface
@@ -29,16 +29,16 @@ class GroupService
     /**
      * GroupService constructor.
      * @param EntityManagerInterface $em
-     * @param ValidatorInterface $validatorInterface
+     * @param ValidatorInterface $validator
      * @param FormFactoryInterface $$formFactory
      */
     public function __construct(
         EntityManagerInterface $em,
-        ValidatorInterface $validatorInterface,
+        ValidatorInterface $validator,
         FormFactoryInterface $formFactory
     ){
         $this->em = $em;
-        $this->validatorInterface = $validatorInterface;
+        $this->validator = $validator;
         $this->formFactory = $formFactory;
     }
 
@@ -51,6 +51,19 @@ class GroupService
         array $request
     ) {
         $groups = new Groups();
+
+        $form = $this->formFactory->create(GroupType::class, $groups);
+        $form->submit($request);
+
+        dump($groups);
+
+        if(!$form->isValid()){
+            $violations = $this->validator->validate($groups);
+            die();
+        }
+
+
+        dump($form);
         dump("llaoe");
         die();
     }

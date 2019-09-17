@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
 /**
@@ -12,6 +13,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="groups")
  * @ORM\Entity
+ * @UniqueEntity(
+ *     fields={"groupName"},
+ *     message="That group name already registered!"
+ * )
  */
 class Groups
 {
@@ -30,6 +35,13 @@ class Groups
      *
      * @ORM\Column(name="group_name", type="string", length=100, nullable=false)
      * @JMS\Groups({"api_users"})
+     * @Assert\NotBlank(message="Please provide a group name")
+     * @Assert\Length(
+     *     min=3,
+     *     max=20,
+     *     minMessage="The group name must be at least 3 characters long",
+     *     maxMessage="The group name cannot be longer than 20 characters"
+     * )
      */
     private $groupName;
 

@@ -28,7 +28,7 @@ class Members
      * @var string
      *
      * @ORM\Column(name="first_name", type="string", length=100, nullable=false)
-     * @JMS\Groups({"api_users", api_response})
+     * @JMS\Groups({"api_users"})
      */
     private $firstName;
 
@@ -36,7 +36,7 @@ class Members
      * @var string
      *
      * @ORM\Column(name="last_name", type="string", length=100, nullable=false)
-     * @JMS\Groups({"api_users", api_response})
+     * @JMS\Groups({"api_users"})
      */
     private $lastName;
 
@@ -44,7 +44,7 @@ class Members
      * @var string|null
      *
      * @ORM\Column(name="phone", type="string", length=50, nullable=true)
-     * @JMS\Groups({"api_users", api_response})
+     * @JMS\Groups({"api_users"})
      */
     private $phone;
 
