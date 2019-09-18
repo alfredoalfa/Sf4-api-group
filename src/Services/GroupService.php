@@ -81,6 +81,6 @@ class GroupService extends Controller
 
         $json = $this->serializer->serialize($groups,'json');
 
-        return new JsonResponse(["Sucess" => (string)$json], 200);
+        return new JsonResponse(["Success" => (string)$json], 200);
     }
 }
