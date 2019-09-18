@@ -7,7 +7,6 @@ use JMS\Serializer\Annotation as JMS;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-
 /**
  * Groups
  *
@@ -33,7 +32,7 @@ class Groups
     /**
      * @var string
      *
-     * @ORM\Column(name="group_name", type="string", length=100, nullable=false)
+     * @ORM\Column(name="group_name", type="string", length=100, nullable=false, unique=true)
      * @JMS\Groups({"api_users"})
      * @Assert\NotBlank(message="Please provide a group name")
      * @Assert\Length(
@@ -64,9 +63,9 @@ class Groups
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created_at", type="datetimetz", nullable=false, options={"default"="now()"})
+     * @ORM\Column(name="created_at", type="datetimetz", nullable=true, options={"default"="now()"})
      */
-    private $createdAt = 'now()';
+    private $createdAt;
 
     /**
      * @var \DateTime|null

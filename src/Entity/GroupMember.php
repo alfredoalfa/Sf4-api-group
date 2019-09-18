@@ -27,7 +27,7 @@ class GroupMember
      *
      * @ORM\Column(name="created_at", type="datetimetz", nullable=false, options={"default"="now()"})
      */
-    private $createdAt = 'now()';
+    private $createdAt;
 
     /**
      * @var \DateTime|null
